@@ -11,11 +11,12 @@
                     <ul>
                         @foreach ($posts as $post)
                             <li><a href="/posts/{{$post->id}}">{{$post -> title}} </a></li>
-                            <li><img src="{{$post->image}}" alt="no image" width="150" height="150"></li>
+                            <li><img src="{{$post->image}}" alt="no image" width="130" height="150"></li>
                         @endforeach
                     </ul>
                 </div>
             </div>
+            {{$posts->links()}}
         </div>
     </div>
 </x-app-layout>
