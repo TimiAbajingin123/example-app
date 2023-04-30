@@ -70,7 +70,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $comments = Comment::all() -> where('post_id', $id);
-        return view('posts.show', ['post' => $post], ['comments' => $comments]);
+        return view('livewire.posts', ['post' => $post], ['comments' => $comments]);
     }
 
     /**

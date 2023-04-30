@@ -34,6 +34,8 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts');
 
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
+
+
 Route::get('/posts/{id}', [PostController::class, 'show']);
 
 Route::get('/comments/{id}', [CommentController::class, 'show']);
