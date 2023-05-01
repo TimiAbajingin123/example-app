@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <livewire:posts/>
+    @livewire('posts', ['post' => $post,'comments' => $comments])
     <livewire:scripts/>
 </body>
 
