@@ -2,12 +2,12 @@
 
 
 <head>
-    <livewire:styles/>
+    @livewireStyles
 </head>
 
 <body>
-    @livewire('posts', ['post' => $post,'comments' => $comments])
-    <livewire:scripts/>
+    @livewire('counter', ['post' => $post])
+    @livewireScripts
 </body>
 
 
