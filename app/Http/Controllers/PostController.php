@@ -76,24 +76,45 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $comments = Comment::all() -> where('post_id', $id);
+        return view('posts.edit', ['post' => $post], ['comments' => $comments]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $validatedPost = $request->validate([
+            'title' => 'required',
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048',
+        ]);
+        $newImageName = uniqid() . '-' . $request->title . '.' .
+        $request->image->extension();
+        $request->image->move(public_path('images'), $newImageName);
+        Post::where('id', $id)
+            ->update([
+                'title' => $validatedPost['title'],
+                'user_id' => $post->user_id,
+                'image' => 'images/'. $newImageName,
+            ]);
+
+        return redirect('/posts')
+            ->with('message', 'Your post has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy($id)
     {
-        //
+        $p = Post::where('id', $id);
+        $p->delete();
+        return redirect('/posts')
+            ->with('message', 'Your post has been deleted');
     }
 }

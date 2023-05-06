@@ -14,8 +14,15 @@ class UserTableSeeder extends Seeder
     public function run(): void
     {
         $u = new User;
-        $u->name = 'Timi';
+        $u->name = 'Timi Admin';
         $u->role_id = 1;
+        $u->password = 'ChrolloLucifer123';
+        $u->email = 'timi@gmail.com';
+        $u->save();
+
+        $u = new User;
+        $u->name = 'Timi';
+        $u->role_id = 2;
         $u->password = 'ChrolloLucifer123';
         $u->email = 'timiabajingin@gmail.com';
         $u->save();

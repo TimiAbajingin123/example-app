@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create Post') }}
+            {{ __('Edit Post') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -10,16 +10,18 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form 
                         method="POST"
-                        action="{{route('posts.store')}}"
+                        action="/posts/{{$post->id}}/update"
                         enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <input 
                             type="text"
                             name="title"
-                            placeholder="Title..."
+                            value="{{$post->title}}"
                             class="block mt-1 w-full">
 
                         <div class="bg-grey-lighter pt-15">
+                            <img src="{{$post->image}}" alt="no image" width="130" height="150">
                             <label class="w-44 flex flex-col items-center px-2 py-3
                             bg-white-rounded-lg shadow-lg tracking-wide uppercase border
                             border-blue cursor-pointer">
@@ -31,11 +33,10 @@
                                     name="image"
                                     >
                             </label>
-                            
                             <input 
                             type="submit"
                             class="text-gray-700 italic hover:text-gray-900
-                                pb-1 border-b-2"
+                                pb-1 border-b-2 "
                             value="submit">
                         </div>
                     </form>
