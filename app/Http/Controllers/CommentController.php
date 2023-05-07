@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -43,10 +45,12 @@ class CommentController extends Controller
         return view('comments.show', ['comments' => $comments]);
     }
 
+    
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit($id): Response
     {
         //
     }
@@ -54,16 +58,37 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        $post_id = $comment ->post_id;
+        $post = Post::findorFail($post_id);
+        $comments = Comment::all() -> where('post_id', $post_id);
+        $validatedComment = $request->validate([
+            'content' => 'required|string|max:500',
+        ]);
+        
+        Comment::where('id', $id)
+            ->update([
+                'content' => $validatedComment['content'],
+                'user_id' => $comment->user_id,
+                'post_id' => $post_id,
+            ]);
+
+        
+
+        return redirect() -> route('posts.show', ['id' => $post_id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy($id)
     {
-        //
+        $c = Comment::findOrFail($id);
+        $c->delete();
+        $post = Post::findOrFail($c->post_id);
+        $comments = Comment::all() -> where('post_id', $post->id);
+        return redirect() -> route('posts.show', ['id' => $post->id]);
     }
 }

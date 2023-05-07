@@ -2,15 +2,29 @@
 
 namespace App\Http\Livewire;
 use App\Models\Comment;
-
+use App\Models\Post;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Counter extends Component
 {
+    
     public $post;
     public $comments;
     public String $content;
+    public $isEditing = false;
+    public $edited_id = 0;
     //public $user_id;
+
+    public function updateEditing($isEditing, $id){
+        $this-> isEditing = $isEditing;
+        $this->edited_id = $id;
+    }
+
+    public function updateEditing2($isEditing){
+        $this-> isEditing = $isEditing;
+        $this->edited_id = 0;
+    }
 
     protected $rules = [
         'content' => 'required|string|max:500'
@@ -33,11 +47,17 @@ class Counter extends Component
             $comment->content = $this->content;
 
             $comment->save();
-            session()->flash('message', 'Post was created.');
+            session()->flash('message', 'Comment was created.');
             $this -> content="";
         }
+        $this -> content="";
+        //$this->emit('refresh');
+        //return redirect() -> route('posts.show', ['id' => $this->post->id]);
         
     }
+
+
+
 
     public function mount($post)
     {
