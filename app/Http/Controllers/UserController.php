@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Post;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -40,9 +42,13 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show($id)
     {
         //
+        $user = User::findOrFail($id);
+        $comments = Comment::all() -> where('user_id', $id);
+        $posts = Post::all() -> where('user_id', $id);
+        return view('users.show', ['user' => $user, 'posts' => $posts, 'comments' => $comments]);
     }
 
     /**

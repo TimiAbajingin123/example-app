@@ -10,7 +10,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <ul>
                         @foreach ($users as $user)
-                            <li><a>{{$user -> name}} </a></li>
+                            <li><a href="/users/{{$user->id}}">{{$user -> name}} </a></li>
                         @endforeach
                     </ul>
                 </div>

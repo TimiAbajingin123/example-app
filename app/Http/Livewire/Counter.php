@@ -51,9 +51,17 @@ class Counter extends Component
             $this -> content="";
         }
         $this -> content="";
-        //$this->emit('refresh');
-        //return redirect() -> route('posts.show', ['id' => $this->post->id]);
+        $this->emit('refresh');
+        return redirect() -> route('posts.show', ['id' => $this->post->id]);
         
+    }
+
+    public function destroy($id)
+    {
+        $c = Comment::findOrFail($id);
+        $c->delete();
+        $post = Post::findOrFail($c->post_id);
+        $comments = Comment::all() -> where('post_id', $post->id);
     }
 
 

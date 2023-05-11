@@ -52,6 +52,8 @@ Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
 Route::get('/comments/{id}', [CommentController::class, 'show']);
 
+Route::get('/users/{id}', [UserController::class, 'show']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -23,17 +23,26 @@
         </form>
         @elseif (Auth::check() && (Auth::user()->id == $comment->user_id))
         <p>Comment: {{$comment -> content}} </p>
-        <button type='button' wire:click="updateEditing(true, {{$comment->id}})" class="p-2 bg-blue-500 w-20 rounded shadow dark:text-gray">edit</button>
-        @else
-        <p>Comment: {{$comment -> content}} </p>
-        @endif
-        @if (Auth::check() && (Auth::user()->id == $comment->user_id || Auth::user()->id == 1))
         <form 
         action="/posts/comment/{{$comment->id}}/delete"
         method="POST">
         @csrf
         @method('delete')
-        <button type='submit' href="" class="p-2 bg-blue-500 w-20 rounded shadow dark:text-gray">delete</button>
+        <button type='button' wire:click="updateEditing(true, {{$comment->id}})" class="p-2 bg-blue-500 w-20 rounded shadow dark:text-gray">edit</button>
+        @else
+        <p>Comment: {{$comment -> content}} </p>
+        @endif
+        @if (Auth::check() && (Auth::user()->id == $comment->user_id || Auth::user()->id == 1))
+       
+        <button type='submit' x-on:click="confirmCommentDeletion" 
+        href="" class="p-2 bg-blue-500 w-20 rounded shadow dark:text-gray"
+        x-data="{
+            confirmCommentDeletion(){
+                if (window.confirm('Confirm delete')){
+                    @this.call(destroy({{$comment->id}}))
+                }
+            }
+        }">delete</button>
         </form>
         @endif
     </div>
