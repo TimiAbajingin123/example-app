@@ -3,12 +3,14 @@
 namespace App\Http\Livewire;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
+use App\Notifications\NewComment;
 use Livewire\Component;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Counter extends Component
 {
-    
+    public $user;
     public $post;
     public $comments;
     public String $content;
@@ -49,6 +51,7 @@ class Counter extends Component
             $comment->content = $this->content;
 
             $comment->save();
+            $this->user->notify(new NewComment(\Auth::user(), $this->post, $comment));
             session()->flash('message', 'Comment was created.');
            
         }
@@ -74,6 +77,6 @@ class Counter extends Component
         $this -> post = $post;
         $this -> comments = Comment::all() -> where('commentable_id', $this -> post -> id);
         //$this -> content ="2";
-        //$this->user_id = auth()->user()->id;
+        $this->user = User::findOrFail($this -> post -> user_id);
     }
 }
