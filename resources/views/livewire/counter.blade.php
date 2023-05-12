@@ -6,6 +6,9 @@
             <input type="string" class="w-full rounded border shadow p-2 mr-2 my-2" placeholder="add a comment" name = "content" id="content" wire:model.lazy="content">
             <button href="" type="submit" class="p-2 bg-blue-500 w-20 rounded shadow dark:text-gray">Add</button>
         </form>
+    @else
+    <a href="{{ route('login') }}">Log in to comment</a>
+    <br></br>
     @endif
 
     @foreach ($comments as $comment)

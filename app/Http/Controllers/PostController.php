@@ -53,7 +53,7 @@ class PostController extends Controller
         $p = new Post;
         $p->title = $validatedPost['title'];
         $p->user_id = $id;
-        $p->image = 'images/'. $newImageName;
+        $p->image = 'images/'.$newImageName;
 
         $p->save();
         session()->flash('message', 'Post was created.');
@@ -100,7 +100,7 @@ class PostController extends Controller
             ->update([
                 'title' => $validatedPost['title'],
                 'user_id' => $post->user_id,
-                'image' => 'images/'. $newImageName,
+                'image' => 'images/'.$newImageName,
             ]);
 
         return redirect('/posts')

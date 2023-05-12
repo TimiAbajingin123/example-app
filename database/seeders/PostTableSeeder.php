@@ -15,9 +15,11 @@ class PostTableSeeder extends Seeder
     {
         $p = new Post;
         $p->title = 'Arsenal vs Everton';
-        $p->user_id = 1;
+        $p->user_id = 2;
         $p->image = fake()->imageUrl(100, 100);
         $p->save();
+
+    
 
 
         Post::factory()->count(5)->create();
