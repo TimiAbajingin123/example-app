@@ -11,7 +11,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <p>Author: {{$post->user->name}}</p>
                     <p>Title: {{$post->title}} </p>
+                    <ul>
                     <img src="{{$post->image}}" alt="no image" width="130" height="150">
+                    </ul>
                     
                     @if (Auth::check() && (Auth::user()->id == $post->user_id || Auth::user()->id == 1))
                         <span class="">

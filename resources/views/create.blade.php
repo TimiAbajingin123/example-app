@@ -38,7 +38,17 @@
                                 pb-1 border-b-2"
                             value="submit">
                         </div>
+                        @if($errors->any())
                     </form>
+                    @if($errors->any())
+                    <div>
+                        <ul>
+                            @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>    

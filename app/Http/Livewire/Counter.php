@@ -48,9 +48,8 @@ class Counter extends Component
 
             $comment->save();
             session()->flash('message', 'Comment was created.');
-            $this -> content="";
+           
         }
-        $this -> content="";
         $this->emit('refresh');
         return redirect() -> route('posts.show', ['id' => $this->post->id]);
         
