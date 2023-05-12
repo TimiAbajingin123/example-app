@@ -39,7 +39,7 @@
         x-data="{
             confirmCommentDeletion(){
                 if (window.confirm('Confirm delete')){
-                    @this.call(destroy({{$comment->id}}))
+                    @this.call(action)
                 }
             }
         }">delete</button>

@@ -15,7 +15,7 @@ class Post extends Model
     }
     public function comment()
     {
-        return $this -> hasMany('App\Models\Comment');
+        return $this -> morphMany('App\Models\Comment', 'commentable');
     }
     public function review()
     {

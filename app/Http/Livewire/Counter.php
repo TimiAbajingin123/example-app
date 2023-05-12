@@ -42,7 +42,9 @@ class Counter extends Component
         $this->validate();
         if(trim($this->content)!=""){
             $comment = new Comment;
-            $comment->post_id = $this->post->id;
+            //$comment->post_id = $this->post->id;
+            $comment->commentable_id = $this->post->id;
+            $comment->commentable_type = 'App\Models\Post';
             $comment->user_id = \Auth::user()->id;
             $comment->content = $this->content;
 
@@ -51,7 +53,8 @@ class Counter extends Component
            
         }
         $this->emit('refresh');
-        return redirect() -> route('posts.show', ['id' => $this->post->id]);
+        return redirect() -> route('posts.show', ['id' => $this->post->id])
+            ->with('message', 'Your comment has been posted');
         
     }
 
@@ -69,7 +72,7 @@ class Counter extends Component
     public function mount($post)
     {
         $this -> post = $post;
-        $this -> comments = Comment::all() -> where('post_id', $this -> post -> id);
+        $this -> comments = Comment::all() -> where('commentable_id', $this -> post -> id);
         //$this -> content ="2";
         //$this->user_id = auth()->user()->id;
     }

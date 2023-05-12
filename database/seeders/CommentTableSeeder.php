@@ -15,8 +15,10 @@ class CommentTableSeeder extends Seeder
     {
         $c = new Comment;
         $c->user_id = 1;
-        $c->post_id = 1;
+        //$c->post_id = 1;
         $c->content = 'great match';
+        $c->commentable_id = 1;
+        $c->commentable_type = 'App\Models\Post';
         $c->save();
 
         Comment::factory()->count(50)->create();

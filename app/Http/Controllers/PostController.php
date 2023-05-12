@@ -57,7 +57,7 @@ class PostController extends Controller
 
         $p->save();
         session()->flash('message', 'Post was created.');
-        return redirect()->route('posts');
+        return redirect()->route('posts')->with('message', 'Your post has been created');
 
     }
 
@@ -69,8 +69,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        $comments = Comment::all() -> where('post_id', $id);
-        return view('posts.show', ['post' => $post], ['comments' => $comments]);
+        $comments = Comment::all() -> where('commentable_id', $id);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**

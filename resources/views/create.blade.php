@@ -38,7 +38,6 @@
                                 pb-1 border-b-2"
                             value="submit">
                         </div>
-                        @if($errors->any())
                     </form>
                     @if($errors->any())
                     <div>
